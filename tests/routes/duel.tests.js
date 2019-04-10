@@ -1,15 +1,25 @@
 // Import the dependencies for testing
+import {describe} from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
+
 import app from '../../src/server';
 import DuelService from '../../src/service/DuelService';
+import { getUserAccessToken } from '../harness/auth';
 
 // Configure chai
 chai.use(chaiHttp);
 chai.should();
 
 describe("duel route", () => {
+  let accessToken = undefined;
+  before(async () => {
+    accessToken = await getUserAccessToken({
+      sub: 'auth0|1234'
+    });
+  });
+
   describe("GET /v1/duel", () => {
     let duelService = null;
     // Test to get all my duels
@@ -37,6 +47,7 @@ describe("duel route", () => {
       duelService.withArgs(id).returns(Promise.resolve(result));
       chai.request(app)
         .get(`/v1/duel/${id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -51,6 +62,7 @@ describe("duel route", () => {
       duelService.withArgs(id).returns(Promise.resolve(undefined));
       chai.request(app)
         .get(`/v1/duel/${id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.deep.equal({

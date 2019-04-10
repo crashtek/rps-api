@@ -7,8 +7,6 @@ import logger from './logger';
 import router from './router';
 import { handleAssertionError, handleDatabaseError, handleNotFoundError } from './middleware/errorHandling';
 
-dotenv.config({ debug: process.env.NODE_ENV !== 'production' });
-
 const app = express();
 
 const port = process.env.PORT || 8080;

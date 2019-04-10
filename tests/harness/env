@@ -1,0 +1,6 @@
+AUTH0_DOMAIN=test.crashtek.games
+CRASHTEK_LOG_LEVEL=debug
+CRASHTEK_API_DOMAIN=api.test.crashtek.games
+CRASHTEK_API_GUEST_SIGNING_SECRET=some-testing-secret
+CRASHTEK_TEST_API_PUBLIC_SIGNING_KEY_PATH=./signing-test-public.pem
+CRASHTEK_TEST_API_PRIVATE_SIGNING_KEY_PATH=./signing-test-private.pem
