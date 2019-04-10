@@ -4,23 +4,55 @@
   "description": "RPS API",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:js": "eslint --ignore-path .gitignore --ignore-pattern webpack --ignore-pattern tests .",
+    "test": "npm run lint:js && cross-env NODE_ENV=test nyc mocha --require ignore-styles tests/mocha.js './tests/**/*.tests.js'",
+    "snyk-protect": "snyk protect",
+    "start": "npm run lint:js && node ./index"
   },
   "author": "mostekcm",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.4.0",
+    "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.4.0",
     "body-parser": "^1.18.3",
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.1",
     "dotenv": "^7.0.0",
+    "eslint": "^5.16.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "jwks-rsa": "^1.4.0",
+    "mongodb": "^3.2.2",
+    "morgan": "^1.9.1",
+    "winston": "^3.2.1"
+  },
+  "nyc": {
+    "extension": [
+      ".js"
+    ],
+    "include": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  },
+  "snyk": true,
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "cross-env": "^5.2.0",
+    "eslint-config-auth0": "^11.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "mocha": "^6.0.2",
-    "morgan": "^1.9.1"
+    "nyc": "^13.3.0",
+    "sinon": "^7.3.1",
+    "snyk": "^1.145.0"
   }
 }

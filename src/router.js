@@ -1,11 +1,9 @@
 import { Router } from 'express';
 
-import { getRouter as duelRouter } from './routes/duel';
+import duelRouter from './routes/duel';
 
-export const getRouter = () => {
-  const router = Router();
+const router = Router();
 
-  router.use('/duel', duelRouter());
+router.use('/duel', duelRouter);
 
-  return router;
-};
+export default router;
