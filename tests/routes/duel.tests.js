@@ -1,5 +1,5 @@
 // Import the dependencies for testing
-import { describe } from 'mocha';
+import { describe, before } from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
@@ -12,7 +12,7 @@ import { getUserAccessToken } from '../harness/auth';
 chai.use(chaiHttp);
 chai.should();
 
-describe("duel route", () => {
+describe("duel route", async () => {
   let accessToken = undefined;
   before(async () => {
     accessToken = await getUserAccessToken({
@@ -20,7 +20,7 @@ describe("duel route", () => {
     });
   });
 
-  describe("GET /v1/duel", () => {
+  describe("GET /v1/duel", async () => {
     let duelService = null;
     // Test to get all my duels
     // it("should get all students record", (done) => {

@@ -25,6 +25,7 @@
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.4.0",
+    "lodash": "^4.17.11",
     "mongodb": "^3.2.2",
     "morgan": "^1.9.1",
     "winston": "^3.2.1"
@@ -37,7 +38,7 @@
       "src/**/*.js"
     ],
     "require": [
-      "babel-register"
+      "@babel/register"
     ],
     "sourceMap": true,
     "instrument": true
@@ -53,6 +54,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "ignore-styles": "^5.0.1",
     "mocha": "^6.0.2",
     "nock": "^10.0.6",
     "node-jose": "^1.1.3",

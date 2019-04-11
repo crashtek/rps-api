@@ -25,7 +25,7 @@ app.use(handleNotFoundError);
 app.use(handleDatabaseError);
 app.use(handleAssertionError);
 
-app.listen(port, (err) => {
+export const start = () => app.listen(port, (err) => {
   if (err) logger.error(err);
   logger.info(`Listening on port ${port}`);
 });

@@ -1,4 +1,7 @@
 require('@babel/register');
 require('@babel/polyfill');
 require('dotenv').config({ debug: process.env.NODE_ENV !== 'production' });
-require('./src/server');
+
+const app = require('./src/server');
+
+app.start(app);

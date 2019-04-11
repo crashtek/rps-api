@@ -5,4 +5,5 @@ process.env.NODE_ENV = 'test';
 // before our tests run.
 require('@babel/register');
 require('@babel/polyfill');
+
 require('dotenv').config({ debug: true, path: require('path').join(__dirname, '/harness/env') });

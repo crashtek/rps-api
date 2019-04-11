@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import fs from 'fs';
 import nock from 'nock';
 import jose from 'node-jose';
@@ -49,7 +50,8 @@ const getKid = async () => {
   return done;
 };
 
-export const getUserAccessToken = async (user) => {
+export const getUserAccessToken = async (user, overrides) => {
+  overrides = overrides || {};
   const options = {
     audience: 'http://api.crashtek.games/v1/',
     issuer: `https://${process.env.AUTH0_DOMAIN}/`,
@@ -58,16 +60,20 @@ export const getUserAccessToken = async (user) => {
     keyid: await getKid()
   };
 
+  _.assign(options, overrides);
+
   return jwt.sign(user, crashtekApiPrivateKey, options);
 };
 
-export const getGuestAccessToken = async (user) => {
+export const getGuestAccessToken = async (user, overrides) => {
+  overrides = overrides || {};
   const options = {
     audience: 'http://api.crashtek.games/v1/',
     issuer: `https://${process.env.CRASHTEK_API_DOMAIN}/`,
     algorithm: 'HS256',
     expiresIn: '2 days'
   };
+  _.assign(options, overrides);
 
   return jwt.sign(user, process.env.CRASHTEK_API_GUEST_SIGNING_SECRET, options);
 };
