@@ -1,5 +1,5 @@
 // Import the dependencies for testing
-import {describe} from 'mocha';
+import { describe } from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
@@ -41,26 +41,26 @@ describe("duel route", () => {
       DuelService.prototype.find.restore();
     });
 
-    it("should get a single duel record", (done) => {
-      const result = {id: 1, message: 'some duel'};
+    it("should get a single duel record", async () => {
+      const result = { id: 1, message: 'some duel' };
       const id = '1';
       duelService.withArgs(id).returns(Promise.resolve(result));
-      chai.request(app)
+      return new Promise((resolve) => chai.request(app)
         .get(`/v1/duel/${id}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.be.deep.equal(result);
-          done();
-        });
+          resolve();
+        }));
     });
 
     // Test to get single duel record
-    it("should not get a single duel record", (done) => {
+    it("should not get a single duel record", async () => {
       const id = 5;
       duelService.withArgs(id).returns(Promise.resolve(undefined));
-      chai.request(app)
+      return new Promise((resolve) => chai.request(app)
         .get(`/v1/duel/${id}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .end((err, res) => {
@@ -69,8 +69,9 @@ describe("duel route", () => {
             type: 'NotFoundError',
             message: `Resource Duel (ID:${id}) was not found.`
           });
-          done();
-        });
+          resolve();
+        }))
+        .catch((e) => console.error(e));
     });
   });
 });

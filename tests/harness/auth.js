@@ -61,16 +61,14 @@ export const getUserAccessToken = async (user) => {
   return jwt.sign(user, crashtekApiPrivateKey, options);
 };
 
+export const getGuestAccessToken = async (user) => {
+  const options = {
+    audience: 'http://api.crashtek.games/v1/',
+    issuer: `https://${process.env.CRASHTEK_API_DOMAIN}/`,
+    algorithm: 'HS256',
+    expiresIn: '2 days'
+  };
 
-// if (crashtekApiPublicKey && crashtekApiPrivateKey) {
-//   console.log('carlos, private: ', crashtekApiPrivateKey);
-//   console.log('carlos, public: ', crashtekApiPublicKey);
-//   console.log('carlos, private jwk: ', pem2jwk(crashtekApiPrivateKey));
-//   console.log('carlos, public jwk: ', pem2jwk(crashtekApiPublicKey));
-// } else {
-//   console.log('carlos no files found');
-// }
+  return jwt.sign(user, process.env.CRASHTEK_API_GUEST_SIGNING_SECRET, options);
+};
 
-//
-//
-// export const createTestGuestToken

@@ -1,10 +1,7 @@
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
-import fs from 'fs';
 
-import logger from '../logger';
-
-export const checkUser = async (req, res, next) => await jwt({
+export const checkUser = (req, res, next) => jwt({
   secret: jwks.expressJwtSecret({
     cache: true,
     rateLimit: true,
@@ -13,8 +10,12 @@ export const checkUser = async (req, res, next) => await jwt({
   }),
   audience: 'http://api.crashtek.games/v1/',
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  algorithms: [ 'RS256' ]
-})(req, res, next);
+  algorithms: ['RS256']
+})(req, res, (error) => {
+  if (error) return next(error);
+  req.user.isGuest = false;
+  return next();
+});
 
 // pub and private generated with openssl req -x509 -newkey rsa:4096 -keyout signing-private.pem -out signing-public.pem -days 1825 -nodes
 // Country Name (2 letter code) []:US
@@ -28,21 +29,24 @@ export const checkUser = async (req, res, next) => await jwt({
 // const crashtekApiPrivateKey = fs.readFileSync(process.env.CRASHTEK_API_PRIVATE_SIGNING_KEY_PATH);
 const crashtekApiSigningSecret = process.env.CRASHTEK_API_GUEST_SIGNING_SECRET;
 
-export const checkGuest = async (req, res, next) => await jwt({
+export const checkGuest = (req, res, next) => jwt({
   secret: crashtekApiSigningSecret,
   audience: 'http://api.crashtek.games/v1/',
   issuer: `https://${process.env.CRASHTEK_API_DOMAIN}/`,
-  algorithms: [ 'HS256' ]
-})(req, res, next);
+  algorithms: ['HS256']
+})(req, res, (error) => {
+  if (error) return next(error);
+  req.user.isGuest = true;
+  return next();
+});
 
-export const checkGuestOrUser = async (req, res, next) => {
-  await checkGuest(req, res, async (error) => {
+export const checkGuestOrUser = (req, res, next) =>
+  checkGuest(req, res, (error) => {
     if (error) {
       // If error here, then this is not a guest, try user
-      return await checkUser(req, res, next);
+      return checkUser(req, res, next);
     }
 
     // no error, this must be a guest
     return next();
   });
-};

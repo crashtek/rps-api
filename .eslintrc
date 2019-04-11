@@ -10,7 +10,7 @@
     "jsx-a11y/href-no-hash": 0,
     "max-len": 0,
     "react/display-name": 0,
-    "array-bracket-spacing": [2, "always"],
+    "array-bracket-spacing": [2, "never"],
     "comma-dangle": [2, "never"],
     "eol-last": 2,
     "indent": [2, 2, {

@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 
-import wrap from '../middleware/wrap';
-import DuelService from '../service/DuelService';
+import { DuelService } from '../service/DuelService';
 import { NotFoundError } from '../middleware/errorHandling';
 import { checkGuestOrUser } from '../middleware/auth';
+import wrap from '../middleware/wrap';
 
 const router = Router();
 
@@ -13,7 +13,8 @@ router.use(checkGuestOrUser);
 /**
  * get by ID
  */
-router.get('/:id', celebrate({
+router.get('/:id',
+  celebrate({
     params: Joi.object().keys({
       id: Joi.string().required()
     })
@@ -32,7 +33,8 @@ router.get('/:id', celebrate({
 /**
  * Create a new Duel
  */
-router.post('/', celebrate({
+router.post('/',
+  celebrate({
     body: Joi.object().keys({
       opponentId: Joi.string().allow(''),
       numTurns: Joi.string().valid(['1', '3', '5', '7']).default('1'),

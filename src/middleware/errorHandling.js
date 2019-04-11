@@ -34,7 +34,7 @@ export const handleNotFoundError = (error, req, res, next) => {
       message: error.message
     });
   }
-  next(error);
+  return next(error);
 };
 
 export const handleAssertionError = (error, req, res, next) => {
@@ -44,7 +44,7 @@ export const handleAssertionError = (error, req, res, next) => {
       message: error.message
     });
   }
-  next(error);
+  return next(error);
 };
 
 export const handleDatabaseError = (error, req, res, next) => {
@@ -54,5 +54,5 @@ export const handleDatabaseError = (error, req, res, next) => {
       message: error.message
     });
   }
-  next(error);
+  return next(error);
 };
