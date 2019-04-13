@@ -1,5 +1,5 @@
-const { AssertionError } = require('assert');
-const { MongoError } = require('mongodb');
+import { AssertionError } from 'assert';
+import { MongoError } from 'mongodb';
 
 export class DomainError extends Error {
   constructor(message) {

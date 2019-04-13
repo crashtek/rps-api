@@ -6,8 +6,9 @@
   "scripts": {
     "lint:js": "eslint --ignore-path .gitignore --ignore-pattern webpack --ignore-pattern tests .",
     "test:setup": "./tests/harness/genCerts.sh",
-    "test": "npm run lint:js && cross-env NODE_ENV=test nyc mocha --require ignore-styles tests/mocha.js './tests/**/*.tests.js'",
+    "test": "snyk test && npm run lint:js && cross-env NODE_ENV=test nyc mocha --require ignore-styles tests/mocha.js './tests/**/*.tests.js'",
     "snyk-protect": "snyk protect",
+    "snyk-wizard": "snyk wizard",
     "start": "npm run lint:js && node ./index"
   },
   "author": "mostekcm",
