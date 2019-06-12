@@ -9,6 +9,11 @@ export class DuelService {
     logger.info(`${this.message}`);
     return Promise.resolve({ id, message: 'blah' });
   }
+
+  async join(user) {
+    logger.info(`${this.message}`);
+    return Promise.resolve({ user, message: 'blah' });
+  }
 }
 
 export default DuelService;

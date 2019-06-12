@@ -2,3 +2,4 @@ node_modules
 signing-*.pem
 .env
 .nyc_output
+.idea

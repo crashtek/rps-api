@@ -43,8 +43,10 @@ router.post('/',
   }),
   wrap(async (req, res) => {
     const service = new DuelService();
-    const duel = await service.create(req.user);
-    return res.send(duel);
+    const duel = await service.join(req.user);
+    return res.send({
+      duel
+    });
   }));
 
 export default router;
