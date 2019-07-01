@@ -27,12 +27,14 @@ const start = () => {
           const duelService = new DuelService();
           const opponent1 = JSON.parse(msg.content.toString());
           const opponent2 = JSON.parse(previousMessage.content.toString());
-          const duel = duelService.create(opponent1, opponent2);
-          channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(duel)));
-          channel.sendToQueue(previousMessage.properties.replyTo, Buffer.from(JSON.stringify(duel)));
-          channel.ack(msg);
-          channel.ack(previousMessage);
-          previousMessage = null;
+          duelService.create(opponent1, opponent2)
+            .then((duel) => {
+              channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(duel)));
+              channel.sendToQueue(previousMessage.properties.replyTo, Buffer.from(JSON.stringify(duel)));
+              channel.ack(msg);
+              channel.ack(previousMessage);
+              previousMessage = null;
+            });
         } else {
           previousMessage = msg;
         }
