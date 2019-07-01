@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import logger from './logger';
 
 import router from './router';
+import general from './general';
 import { handleAssertionError, handleDatabaseError, handleNotFoundError } from './middleware/errorHandling';
 
 const app = express();
@@ -28,6 +29,8 @@ app.use(handleAssertionError);
 export const start = () => app.listen(port, (err) => {
   if (err) logger.error(err);
   logger.info(`Listening on port ${port}`);
+  logger.info('Starting general');
+  general();
 });
 
 export default app;

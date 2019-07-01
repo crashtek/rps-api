@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 
-import { DuelService } from '../service/DuelService';
+import DuelService from '../service/DuelService';
 import { NotFoundError } from '../middleware/errorHandling';
 import { checkGuestOrUser } from '../middleware/auth';
 import wrap from '../middleware/wrap';
