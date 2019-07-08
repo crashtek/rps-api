@@ -28,10 +28,10 @@
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.4.0",
     "lodash": "^4.17.11",
-    "mongodb": "^3.2.2",
+    "mongodb": "^3.2.7",
     "morgan": "^1.9.1",
-    "winston": "^3.2.1",
-    "uuid": "latest"
+    "uuid": "latest",
+    "winston": "^3.2.1"
   },
   "nyc": {
     "extension": [
