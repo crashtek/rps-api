@@ -23,7 +23,7 @@ class MessageQueueService {
     if (this.channel) return this.channel;
 
     if (!MessageQueueService.channel) {
-      MessageQueueService.connection = await amqp.connect('amqp://localhost');
+      MessageQueueService.connection = await amqp.connect(process.env.CLOUDAMQP_URL);
       MessageQueueService.channel = await MessageQueueService.connection.createChannel();
     }
 
