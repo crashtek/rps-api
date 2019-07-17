@@ -23,6 +23,7 @@ class MessageQueueService {
     if (this.channel) return this.channel;
 
     if (!MessageQueueService.channel) {
+      console.log(`connecting to url ${process.env.CLOUDAMQP_URL.split('@')[1]}`);
       MessageQueueService.connection = await amqp.connect(process.env.CLOUDAMQP_URL);
       MessageQueueService.channel = await MessageQueueService.connection.createChannel();
     }
