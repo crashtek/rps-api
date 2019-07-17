@@ -2,7 +2,7 @@ import amqp from 'amqplib/callback_api';
 import DuelService from '../service/DuelService';
 
 const start = () => {
-  amqp.connect('amqp://localhost', (error0, connection) => {
+  amqp.connect(process.env.CLOUDAMQP_URL, (error0, connection) => {
     if (error0) {
       throw error0;
     }
