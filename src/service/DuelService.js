@@ -45,7 +45,7 @@ class DuelService {
     if (this.db !== null) return this.db;
 
     const client = await mongo.MongoClient.connect(process.env.MONGO_URI);
-    const db = await client.db('rps');
+    const db = await client.db(process.env.MONGO_DB);
     this.db = await db.collection('duels');
     return this.db;
   }
