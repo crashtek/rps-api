@@ -1,4 +1,5 @@
 import express from 'express';
+import * as cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import logger from './logger';
@@ -16,6 +17,8 @@ if (process.env.NODE_ENV !== 'test') {
   // use morgan to log at command line
   app.use(morgan('combined')); // 'combined' outputs the Apache style LOGs
 }
+
+app.use(cors());
 
 // parse application/json and look for raw text
 app.use(bodyParser.json({ type: 'application/json' }));
